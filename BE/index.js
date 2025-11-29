@@ -1,32 +1,36 @@
-const { initializeDatabase } = require('./db/db.connect')
+const Book = require('./models/book.model.js')
+const express = require('express')
+
+const app = express()
+
 const fs = require('fs')
-const Book = require('./models/book.model')
+app.use(express.json())
+
+const { initializeDatabase } = require('./db/db.connect.js')
+
 initializeDatabase()
 
-const jsonData = fs.readFileSync('books.json', 'utf-8')
-const BooksData = JSON.parse(jsonData)
-
-
-async function seedData(){
+async function getAllBook(){
     try {
-        for(const BookData of BooksData){
-            const newBook = new Book({
-                title: BookData.title,
-                author: BookData.author,
-                publishedYear: BookData.publishedYear,
-                genre: BookData.genre,
-                language: BookData.language,
-                country: BookData.country,
-                rating: BookData.rating,
-                summary: BookData.summary,
-                coverImgUrl: BookData.coverImgUrl,
-            })
-            console.log(newBook.genre)
-            await newBook.save()
-        }
-    }catch(error){
-        console.log('Error seeding the data', error)
+        const book = await Book.find()
+        return book
+    } catch (error) {
+        throw error
     }
 }
 
-seedData()
+app.get('/books', async (req,res) => {
+    try {
+        const book = await getAllBook()
+        res.status(201).json({message: 'Book Data: ', data: book}) 
+    } catch (error) {
+        res.status(500).json({error: 'Failed to Fetch movie details'})
+    }
+})
+
+
+const PORT = 3001
+
+app.listen(PORT, () => {
+    console.log('Server is running on this', PORT)
+})
