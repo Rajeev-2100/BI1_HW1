@@ -53,6 +53,29 @@ app.get('/books/title/:bookTitle', async (req,res) => {
     }
 })
 
+async function getAllBookByAuthor(bookAuthor) {
+    try {
+        const book = await Book.findOne({author: bookAuthor})
+        return book
+    } catch (error) {
+        throw error
+    }
+}
+
+app.get('/books/author/:bookAuthor', async (req, res) => {
+    try {
+        const book = await getAllBookByAuthor(req.params.bookAuthor)
+        if(book){
+            res.status(201).json({message: 'Book Data: ',data: book}) 
+        }else{
+            res.status(404).json({error: 'Movie API not found'})
+        }
+    } catch (error) {
+        res.status(500).json({error: 'Failed to Fetch movie details'})
+    }
+})
+
+
 const PORT = 3001
 app.listen(PORT, () => {
     console.log('Server is running on this', PORT)
