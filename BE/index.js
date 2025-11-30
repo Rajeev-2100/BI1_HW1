@@ -20,6 +20,25 @@ app.use(cors(corsOptions));
 
 initializeDatabase()
 
+async function saveNewBook(createNewBook){
+    try {
+        const book = await Book(createNewBook)
+        return book
+    } catch (error) {
+        throw error
+    }
+}
+
+app.post('/books', async (req,res) => {
+    try {
+        const book = await saveNewBook(req.body)
+        res.json(book)
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).json({eror: "Failed to fetch book detail"})
+    }
+})
+
 async function getAllBook(){
     try {
         const book = await Book.find()
