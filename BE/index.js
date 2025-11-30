@@ -20,8 +20,6 @@ app.use(cors(corsOptions));
 
 initializeDatabase()
 
-
-
 async function getAllBook(){
     try {
         const book = await Book.find()

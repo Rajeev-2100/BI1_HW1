@@ -1,11 +1,10 @@
-import { useState } from 'react'
-
+import BookTitle from './components/BookTitle'
 
 function App() {
 
   return (
     <>
-      
+      <BookTitle bookTitle="Shoe Dog"/>
     </>
   )
 }
