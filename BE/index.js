@@ -23,7 +23,7 @@ initializeDatabase()
 async function saveNewBook(createNewBook){
     try {
         const book = await Book(createNewBook)
-        return book
+        return book.save()
     } catch (error) {
         throw error
     }

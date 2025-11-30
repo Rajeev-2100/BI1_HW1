@@ -37,9 +37,9 @@ const AddNewBook = () => {
             }
 
             const data = await response.json()
-
             if(data){
                 console.log('Added Book data successfully', data)
+                // window.location.reload()
             }
 
         } catch (error) {
@@ -92,7 +92,7 @@ const AddNewBook = () => {
         <input type="text" name="country" value={formData.country} onChange={handleChange} />
         <br />
         <br />
-        <button type={handleSubmit}>Submit Button</button>
+        <button type="submit">Submit Button</button>
       </form>
     </>
   );
