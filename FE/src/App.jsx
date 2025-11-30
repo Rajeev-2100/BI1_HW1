@@ -1,5 +1,6 @@
 import AllBooksData from './components/AllBooks'
 import BookTitle from './components/BookTitle'
+import BooksByAuthor from './components/BooksByAuthor.jsx'
 
 function App() {
 
@@ -7,6 +8,7 @@ function App() {
     <>
       <AllBooksData/>
       <BookTitle bookTitle="Shoe Dog"/>
+      <BooksByAuthor authorName="Harper Lee"/>
     </>
   )
 }
